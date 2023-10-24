@@ -1,4 +1,4 @@
-# <img src="assets/img/OnStoveLogoColor.svg" alt="drawing" style="width:400px"/>
+# <img src="assets/img/OnStoveLogoNepal.svg" alt="drawing" style="width:400px"/>
 
 This repository contains the general code for the Nepal case study developed using the geospatial 
 cost-benefit clean cooking tool, OnStove. OnStove calculates the net-benefits of different stove 
@@ -7,9 +7,9 @@ In thi study, we linked outputs from OnStove with a multicriteria analysis (MCA)
 Energy Access Explorer (EAE).
 
 ## Introduction 
-OnStove is developed by the division of Energy Systems at KTH together with partners. The tool is a 
-geospatial, raster-based tool determining the net-benefit of different cooking solutions selected by 
-the user for raster grid cell of a given study area. The tool takes into account four benefits of 
+OnStove is developed by the division of Energy Systems at KTH together with partners. OnStove, is a 
+geospatial raster-based tool that determines the net-benefits of different cooking solutions, 
+for each raster grid cell of a given study area. The tool takes into account four benefits of 
 adopting clean cooking: reduced morbidity, mortality, emissions and time saved, as well as three costs: 
 capital, fuel, and operation and maintenance (O&M). In each grid cell of the study area the 
 stove with the highest net-benefit is chosen.
