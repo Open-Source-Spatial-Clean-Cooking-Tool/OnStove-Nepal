@@ -1,4 +1,4 @@
-# <img src="assets/img/OnStoveLogoColor.svg" alt="drawing" style="width:200px"/>
+# <img src="assets/img/OnStoveLogoColor.svg" alt="drawing" style="width:400px"/>
 
 This repository contains the general code for the Nepal case study developed using the geospatial 
 cost-benefit clean cooking tool, OnStove. OnStove calculates the net-benefits of different stove 
