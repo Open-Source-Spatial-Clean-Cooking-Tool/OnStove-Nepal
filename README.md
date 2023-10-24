@@ -3,7 +3,7 @@
 This repository contains the general code for the Nepal case study developed using the geospatial 
 cost-benefit clean cooking tool, OnStove. OnStove calculates the net-benefits of different stove 
 options in a given geography and compares all stoves to one another with regards to their net-benefit.
-In thi study, we linked outputs from OnStove with a multicriteria analysis (MCA) based on the methods of the 
+In this study, we linked outputs from OnStove with a multicriteria analysis (MCA) based on the methods of the 
 Energy Access Explorer (EAE).
 
 ## Introduction 
@@ -59,7 +59,7 @@ Then open a Jupyter lab session with:
 ```
 > jupyter lab
 ```
-Double click on one of the notebooks inside the `3. Scripts` folder and `` follow the steps described
+Double click on one of the notebooks inside the `3. Scripts` folder and follow the steps described
 there. The order of the analysis is:
 1. ``DataProcessor.ipynb`` - reads and processes all raw geospatial data needed for the analysis.
 2. ``NepalRunner.ipynb`` - runs the `OnStove` model for Nepal for one selected scenario.
