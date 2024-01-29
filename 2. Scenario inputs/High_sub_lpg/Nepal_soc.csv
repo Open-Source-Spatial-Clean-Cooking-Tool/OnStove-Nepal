@@ -5,8 +5,8 @@ end_year,2021,int
 start_year,2021,int
 population_start_year,29164578,int
 population_end_year,29164578,int
-urban_start,0.21,float
-urban_end,0.21,float
+urban_start,0.66,float
+urban_end,0.66,float
 elec_rate,0.72,float
 rural_elec_rate,0.67,float
 urban_elec_rate,0.9,float

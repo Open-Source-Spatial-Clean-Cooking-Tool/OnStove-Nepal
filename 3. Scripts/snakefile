@@ -1,0 +1,127 @@
+import os
+
+SCENARIOS = ['Social_optimum', 'High_sub_lpg', 'Low_sub_lpg', 'Stated_policies']
+RESULTS_FOLDER = os.path.join('..', '4. Results')
+GIS_DATA = os.path.join('..', '1. Data')
+PROCESSED_DATA = os.path.join(RESULTS_FOLDER, 'Processed GIS Data')
+SCENARIO_INPUTS = os.path.join('..', '2. Scenario inputs')
+MCA_SCENARIO = 'Stated_policies'
+
+rule all:
+    input:
+        os.path.join(RESULTS_FOLDER, 'main_plot.pdf'),
+        os.path.join(RESULTS_FOLDER, 'prioritized_plot.pdf')
+
+rule process_data:
+    input:
+        boundaries = os.path.join(GIS_DATA, 'Other', 'Administrative boundaries', 'NPL_adm0_Nepal0.shp'),
+        population = os.path.join(GIS_DATA, 'Demand', 'Population', 'HRSL', 'population_npl_2018-10-01.tif'),
+        wealth = os.path.join(GIS_DATA, 'Demand', 'Wealth Index', 'Relative Wealth Index.tif'),
+        municipalities = os.path.join(GIS_DATA, 'Other', 'Administrative boundaries', 'NPL_adm3_Palika0', 'NPL_adm3_Palika0.shp'),
+        forest = os.path.join(GIS_DATA, 'Other', 'Forest cover', 'Forest_height.tif'),
+        walking_friction = os.path.join(GIS_DATA, 'Other', 'Walking friction', '202001_Global_Walking_Only_Friction_Surface_2019.tif'),
+        mv_lines = os.path.join(GIS_DATA, 'Supply', 'Power network', 'MV-network', 'Nepal_DL0.shp'),
+        ntl = os.path.join(GIS_DATA, 'Other', 'Night Time Lights', 'VNL_v21_npp_2020_global_vcmslcfg_c202205302300.average_masked.dat.tif'),
+        mg_points = os.path.join(GIS_DATA, 'Supply', 'Power network', 'MG-hydro', 'micro_hydropower.shp'),
+        mg_capacity = os.path.join(GIS_DATA, 'Supply', 'Power network', 'MG-hydro', 'Municipalities with MG hydro', 'mg_hydro.geojson'),
+        traveltime_urban = os.path.join(GIS_DATA, 'Other', 'Traveltime', 'traveltime_to_urban_by_road.tif'),
+        roads = os.path.join(GIS_DATA, 'Other', 'Roads', 'Road_Networks_of_Nepal_OSM0.shp'),
+        buffaloes = os.path.join(GIS_DATA, 'Supply', 'Global livestock', 'Buffaloes', '5_Bf_2015_Da.tif'),
+        cattle = os.path.join(GIS_DATA, 'Supply', 'Global livestock', 'Cattle', '5_Ct_2015_Da.tif'),
+        poultry = os.path.join(GIS_DATA, 'Supply', 'Global livestock', 'Chickens', '5_Ch_2015_Da.tif'),
+        goats = os.path.join(GIS_DATA, 'Supply', 'Global livestock', 'Goats', '5_Gt_2015_Da.tif'),
+        pigs = os.path.join(GIS_DATA, 'Supply', 'Global livestock', 'Pigs', '5_Pg_2015_Da.tif'),
+        sheeps = os.path.join(GIS_DATA, 'Supply', 'Global livestock', 'Sheep', '5_Sh_2015_Da.tif'),
+        temperature = os.path.join(GIS_DATA, 'Other', 'Temperature', 'TEMP.tif') 
+    params:
+        gis_data = GIS_DATA,
+        out_dir = PROCESSED_DATA
+    output:
+        boundaries = os.path.join(PROCESSED_DATA, 'Administrative', 'Country_boundaries', 'Country_boundaries.geojson'),
+        population = os.path.join(PROCESSED_DATA, 'Demographics', 'Population', 'Population.tif'),
+        wealth = os.path.join(PROCESSED_DATA, 'Demographics', 'Wealth', 'Wealth.tif'),
+        urbal_rural = os.path.join(PROCESSED_DATA, 'Demographics', 'Urban_rural_divide', 'Urban_rural_divide.tif'),
+        forest = os.path.join(PROCESSED_DATA, 'Biomass', 'Forest', 'Forest.tif'),
+        walking_friction = os.path.join(PROCESSED_DATA, 'Biomass', 'Friction', 'Friction.tif'),
+        mv_lines = os.path.join(PROCESSED_DATA, 'Electricity', 'MV_lines', 'MV_lines.geojson'),
+        ntl = os.path.join(PROCESSED_DATA, 'Electricity', 'Night_time_lights', 'Night_time_lights.tif'),
+        mg_points = os.path.join(PROCESSED_DATA, 'Electricity', 'MG_points', 'MG_points.geojson'),
+        mg_capacity = os.path.join(PROCESSED_DATA, 'Electricity', 'MG_access', 'MG_access.geojson'),
+        traveltime_urban = os.path.join(PROCESSED_DATA, 'LPG', 'LPG_traveltime', 'LPG_traveltime.tif'),
+        roads = os.path.join(PROCESSED_DATA, 'LPG', 'Roads', 'Roads.geojson'),
+        buffaloes = os.path.join(PROCESSED_DATA, 'Biogas', 'Livestock', 'buffaloes', 'buffaloes.tif'),
+        cattle = os.path.join(PROCESSED_DATA, 'Biogas', 'Livestock', 'cattle', 'cattle.tif'),
+        poultry = os.path.join(PROCESSED_DATA, 'Biogas', 'Livestock', 'poultry', 'poultry.tif'),
+        goats = os.path.join(PROCESSED_DATA, 'Biogas', 'Livestock', 'goats', 'goats.tif'),
+        pigs = os.path.join(PROCESSED_DATA, 'Biogas', 'Livestock', 'pigs', 'pigs.tif'),
+        sheeps = os.path.join(PROCESSED_DATA, 'Biogas', 'Livestock', 'sheeps', 'sheeps.tif'),
+        temperature = os.path.join(PROCESSED_DATA, 'Biogas', 'Temperature', 'Temperature.tif')
+    notebook:
+        'DataProcessor.ipynb'
+
+rule run_model:
+    input:
+        socio_economics = f'{SCENARIO_INPUTS}/{{scenario}}/Nepal_soc.csv',
+        techno_economics = f'{SCENARIO_INPUTS}/{{scenario}}/Nepal_tech.csv',
+        population = rules.process_data.output.population
+    params:
+        scenario = '{scenario}',
+        processed_data = PROCESSED_DATA,
+        scenario_inputs = SCENARIO_INPUTS,
+        results_folder = RESULTS_FOLDER
+    output: 
+        results = f'{RESULTS_FOLDER}/{{scenario}}/results.pkl',
+        maps = f'{RESULTS_FOLDER}/{{scenario}}/max_benefit_tech.pdf',
+        histogram = f'{RESULTS_FOLDER}/{{scenario}}/tech_histogram.pdf'
+    notebook:
+        'OnStove.ipynb'
+
+rule run_mca:
+    input:
+        onstove_model = os.path.join(RESULTS_FOLDER, MCA_SCENARIO, 'results.pkl')
+    params:
+        mca_folder = os.path.join(RESULTS_FOLDER, 'MCA'),
+        onstove_folder = os.path.join(RESULTS_FOLDER, MCA_SCENARIO),
+        processed_data = PROCESSED_DATA
+    output:
+        final_access = os.path.join(os.path.join(RESULTS_FOLDER, 'MCA'), 'access_results.txt'),
+        biogas_index = os.path.join(os.path.join(RESULTS_FOLDER, 'MCA'), 'Biogas_index.pdf'),
+        ics_index = os.path.join(os.path.join(RESULTS_FOLDER, 'MCA'), 'Biomass_ICS_T3_index.pdf'),
+        electricity_index = os.path.join(os.path.join(RESULTS_FOLDER, 'MCA'), 'Electricity_index.pdf'),
+        biogas_map = os.path.join(os.path.join(RESULTS_FOLDER, 'MCA'), 'Biogas_priority_areas.pdf'),
+        ics_map = os.path.join(os.path.join(RESULTS_FOLDER, 'MCA'), 'Biomass_ICS_T3_priority_areas.pdf'),
+        electricity_map = os.path.join(os.path.join(RESULTS_FOLDER, 'MCA'), 'Electricity_priority_areas.pdf'),
+        priority_histogram = os.path.join(os.path.join(RESULTS_FOLDER, 'MCA'), 'tech_histogram_prioritized.pdf'),
+        priority_map = os.path.join(os.path.join(RESULTS_FOLDER, 'MCA'), 'Prioritized_hh.pdf')
+    notebook:
+        'MCA.ipynb'
+
+rule main_plot:
+    input:
+        maps = expand(f'{RESULTS_FOLDER}/{{scenario}}/max_benefit_tech.pdf', scenario=SCENARIOS),
+        histograms = expand(f'{RESULTS_FOLDER}/{{scenario}}/tech_histogram.pdf', scenario=SCENARIOS),
+        legend = os.path.join(RESULTS_FOLDER, 'legend.pdf')
+    output:
+        main_plot = os.path.join(RESULTS_FOLDER, 'main_plot.pdf')
+    shell:
+         """
+         pdflatex "\\newcommand\path{{"{RESULTS_FOLDER}"}}\input{{main_plot.tex}}" -output-directory "{RESULTS_FOLDER}"
+         """
+
+rule prioritized_plot:
+    input:
+        biogas_index = rules.run_mca.output.biogas_index,
+        ics_index = rules.run_mca.output.ics_index,
+        electricity_index = rules.run_mca.output.electricity_index,
+        biogas_map = rules.run_mca.output.biogas_map,
+        ics_map = rules.run_mca.output.ics_map,
+        electricity_map = rules.run_mca.output.electricity_map,
+        priority_histogram = rules.run_mca.output.priority_histogram,
+        priority_map = rules.run_mca.output.priority_map
+    output:
+        main_plot = os.path.join(RESULTS_FOLDER, 'prioritized_plot.pdf')
+    shell:
+         """
+         pdflatex "\\newcommand\path{{"{RESULTS_FOLDER}"}}\input{{prioritized_plot.tex}}" -output-directory "{RESULTS_FOLDER}"
+         """
+         
