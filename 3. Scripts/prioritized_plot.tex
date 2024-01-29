@@ -1,0 +1,44 @@
+\documentclass{standalone}%
+\usepackage{graphicx}
+\usepackage{varwidth}
+\usepackage{overpic}
+\usepackage{helvet}
+
+\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+\usepackage[T1]{fontenc}
+
+\graphicspath{\path}
+
+\begin{document}
+\begin{varwidth}{190mm}
+	\begin{varwidth}{86mm}
+		\begin{overpic}[abs,unit=1mm,width=90mm]{MCA/Biomass_ICS_T3_priority_areas}
+			\put (0,48) {\footnotesize \textbf{A}}
+			\put (46, 29) {\includegraphics[width=34mm]{MCA/Biomass_ICS_T3_index}}
+		\end{overpic}
+	\end{varwidth}
+	\begin{varwidth}{86mm}
+		\begin{overpic}[abs,unit=1mm,width=90mm]{MCA/Biogas_priority_areas}
+			\put (0,48) {\footnotesize \textbf{B}}
+			\put (46, 29) {\includegraphics[width=34mm]{MCA/Biogas_index}}
+		\end{overpic}
+	\end{varwidth}\\
+
+	\begin{varwidth}{86mm}
+		\begin{overpic}[abs,unit=1mm,width=90mm]{MCA/Electricity_priority_areas}
+			\put (0,48) {\footnotesize \textbf{C}}
+			\put (46, 29) {\includegraphics[width=34mm]{MCA/Electricity_index}}
+		\end{overpic}
+	\end{varwidth}
+	\begin{varwidth}{86mm}
+		\begin{overpic}[abs,unit=1mm,width=90mm]{MCA/Prioritized_hh}
+			\put (0,48) {\footnotesize \textbf{D}}
+			\put (45, 29) {\includegraphics[width=34mm]{MCA/tech_histogram_prioritized}}
+		\end{overpic}
+	\end{varwidth}\\
+
+	\begin{varwidth}{170mm}
+		\hspace{0cm}\includegraphics[width=176mm]{legend_mca.pdf}
+	\end{varwidth}
+\end{varwidth}
+\end{document}

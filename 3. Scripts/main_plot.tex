@@ -1,0 +1,44 @@
+\documentclass{standalone}%
+\usepackage{graphicx}
+\usepackage{varwidth}
+\usepackage{overpic}
+\usepackage{helvet}
+
+\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+\usepackage[T1]{fontenc}
+
+\graphicspath{\path}
+
+\begin{document}
+\begin{varwidth}{176mm}
+	\begin{varwidth}{90mm}
+		\begin{overpic}[abs,unit=1mm,width=90mm]{Social_optimum/max_benefit_tech.pdf}
+			\put (0,48) {\footnotesize \textbf{A}}
+			\put (46, 29) {\includegraphics[width=34mm]{Social_optimum/tech_histogram.pdf}}
+		\end{overpic}
+	\end{varwidth}
+	\begin{varwidth}{90mm}
+		\begin{overpic}[abs,unit=1mm,width=90mm]{Low_sub_lpg/max_benefit_tech.pdf}
+			\put (0,48) {\footnotesize \textbf{B}}
+			\put (46, 29) {\includegraphics[width=34mm]{Low_sub_lpg/tech_histogram.pdf}}
+		\end{overpic}
+	\end{varwidth}\\
+
+	\begin{varwidth}{90mm}
+		\begin{overpic}[abs,unit=1mm,width=90mm]{High_sub_lpg/max_benefit_tech.pdf}
+			\put (0,48) {\footnotesize \textbf{C}}
+			\put (46, 29) {\includegraphics[width=34mm]{High_sub_lpg/tech_histogram.pdf}}
+		\end{overpic}
+	\end{varwidth}
+	\begin{varwidth}{90mm}
+		\begin{overpic}[abs,unit=1mm,width=90mm]{Stated_policies/max_benefit_tech.pdf}
+			\put (0,48) {\footnotesize \textbf{D}}
+			\put (46, 29) {\includegraphics[width=34mm]{Stated_policies/tech_histogram.pdf}}
+		\end{overpic}
+	\end{varwidth}\\
+
+	\begin{varwidth}{170mm}
+		\hspace{0cm}\includegraphics[width=176mm]{legend.pdf}
+	\end{varwidth}
+\end{varwidth}
+\end{document}
