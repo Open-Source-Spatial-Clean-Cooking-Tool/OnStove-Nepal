@@ -14,13 +14,12 @@ adopting clean cooking: reduced morbidity, mortality, emissions and time saved, 
 capital, fuel, and operation and maintenance (O&M). In each grid cell of the study area the 
 stove with the highest net-benefit is chosen.
 
-OnStove produces scenarios depicting the “true” cost of clean cooking. The scenarios benefits' and costs
+OnStove produces scenarios depicting the “true” cost of clean cooking. The scenarios' benefits and costs
 produced by the tool are to be interpreted as the benefits and costs one could expect if the clean 
-cooking transition was to happen now (overnight change). Results from OnStove are can be interpreted as 
+cooking transition was to happen now (overnight change). Results from OnStove can be interpreted as 
 an upper bound of net-benefits following a switch to cleaner stoves. This can give a sense of the cost 
-of inaction. OnStove can be used by planners and policy makers to identify whether various 
-combinations of interventions in their settings would be worth the potential benefits that could be 
-captured.
+of inaction. OnStove can be used by planners and policy makers to identify the potential benefits that 
+different interventions could cause in their systems.
 
 ## Installation 
 Install a python distribution using
@@ -36,18 +35,19 @@ Open an `Anaconda Prompt` or a `Command Prompt` and download the source code wit
 or you can download as a zip file from the GitHub repository.
 
 ### Installing ``OnStove`` with `conda`
-The easiest way of installing and using `OnStove` is through `conda`. After installing a distribution of 
+The easiest way of installing and using `OnStove` is through `conda`. The `OnStove` Nepal model, uses 
+version `0.1.5` of the tool. After installing a distribution of 
 `conda`, open an `Anaconda Prompt` or a `Command Prompt`, and run:
 ```
-> conda create -n onstove -c conda-forge onstove
+> conda create -n onstove -c conda-forge onstove==0.1.5
 ```
 After a few minutes, you will have a new conda environment called `onstove` with `OnStove` installed 
 on it. To use it open an `Anaconda Prompt`, and activate the environment with:
 ```
 > conda activate onstove
 ```
-Now your environment `onstove` is available to use. **Note that you need to activate it
-always before conducting any analysis**.
+Now your environment `onstove` is available to use. **Note that you always need to activate the 
+environment before conducting any analysis**.
 
 ## Running the analysis
 In the `Anaconda Prompt`, change your current directory to the path where you have the OnStove Nepal 
@@ -62,7 +62,7 @@ Then open a Jupyter lab session with:
 Double click on one of the notebooks inside the `3. Scripts` folder and follow the steps described
 there. The order of the analysis is:
 1. ``DataProcessor.ipynb`` - reads and processes all raw geospatial data needed for the analysis.
-2. ``NepalRunner.ipynb`` - runs the `OnStove` model for Nepal for one selected scenario.
+2. ``OnStove.ipynb`` - runs the `OnStove` model for Nepal for one selected scenario.
 3. ``MCA.ipynb`` - runs the `MCA` analysis based on the results of the `OnStove` model, to prioritize 
 actions based on the government's goals.
 
