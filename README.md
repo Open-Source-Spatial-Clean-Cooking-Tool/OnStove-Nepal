@@ -46,8 +46,10 @@ on it. To use it open an `Anaconda Prompt`, and activate the environment with:
 ```
 > conda activate onstove
 ```
-Now your environment `onstove` is available to use. **Note that you always need to activate the 
-environment before conducting any analysis**.
+Now your environment `onstove` is available to use. 
+> [!IMPORTANT]
+> Note that you always need to activate the 
+environment before conducting any analysis.
 
 ## Running the analysis
 In the `Anaconda Prompt`, change your current directory to the path where you have the OnStove Nepal 
