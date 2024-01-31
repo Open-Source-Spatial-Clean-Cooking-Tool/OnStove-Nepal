@@ -29,8 +29,8 @@ Install a python distribution using
 ### Downloading the source code
 Open an `Anaconda Prompt` or a `Command Prompt` and download the source code with:
 ```
-> conda install git
-> git clone https://github.com/Open-Source-Spatial-Clean-Cooking-Tool/OnStove-Nepal.git
+conda install git
+git clone https://github.com/Open-Source-Spatial-Clean-Cooking-Tool/OnStove-Nepal.git
 ```
 or you can download as a zip file from the GitHub repository.
 
@@ -39,12 +39,12 @@ The easiest way of installing and using `OnStove` is through `conda`. The `OnSto
 version `0.1.5` of the tool. After installing a distribution of 
 `conda`, open an `Anaconda Prompt` or a `Command Prompt`, and run:
 ```
-> conda create -n onstove -c conda-forge onstove==0.1.5
+conda create -n onstove -c conda-forge onstove==0.1.6
 ```
 After a few minutes, you will have a new conda environment called `onstove` with `OnStove` installed 
 on it. To use it open an `Anaconda Prompt`, and activate the environment with:
 ```
-> conda activate onstove
+conda activate onstove
 ```
 Now your environment `onstove` is available to use. 
 > [!IMPORTANT]
@@ -52,21 +52,38 @@ Now your environment `onstove` is available to use.
 environment before conducting any analysis.
 
 ## Running the analysis
-In the `Anaconda Prompt`, change your current directory to the path where you have the OnStove Nepal 
-code, using the command `cd`: 
+In the `Anaconda Prompt`, change your current directory to the `3. Scripts` folder inside the path where 
+you have the OnStove Nepal code, using the command `cd`: 
 ```
-> cd replace-with-folder-path
+cd <replace-with-folder-path>/3.\ Scripts
 ```
-Then open a Jupyter lab session with:
+Once you are in that folder you have two different ways you can run the analysis:
+
+### Running manually with Jupyter lab
+Open a Jupyter lab session running the following in the anaconda prompt:
 ```
-> jupyter lab
+jupyter lab
 ```
-Double click on one of the notebooks inside the `3. Scripts` folder and follow the steps described
+Double-click on one of the notebooks inside the `3. Scripts` folder and follow the steps described
 there. The order of the analysis is:
 1. ``DataProcessor.ipynb`` - reads and processes all raw geospatial data needed for the analysis.
 2. ``OnStove.ipynb`` - runs the `OnStove` model for Nepal for one selected scenario.
 3. ``MCA.ipynb`` - runs the `MCA` analysis based on the results of the `OnStove` model, to prioritize 
 actions based on the government's goals.
+
+### Running with the automated workflow through `Snakemake`
+You can run the entire analysis using the `Snakemake` automated workflow. For this, in the anaconda prompt type:
+```
+snakemake -n
+```
+This will perform a dry run that will tell you what are the different steps that will be performed without running them.
+This is useful to check that your model input files are in the right places and to see which will be the expected
+output files. Then to star the analysis run:
+```
+snakemake --cores 3
+```
+Where `--cores 3` tells the computer how many processes it is allowed to run in parallel. This is directly linked 
+with the number of scenarios.
 
 ## Documentation
 Access the latest OnStove documentation in [read the docs](https://onstove-documentation.readthedocs.io/en/latest/?badge=latest).
