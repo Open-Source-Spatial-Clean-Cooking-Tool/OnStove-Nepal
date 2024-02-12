@@ -31,7 +31,7 @@ def swatches(colors, sep=' ', width=1):
         for label, color in colors.items()
     )))  
 
-def plot_baseline_split(model, labels):
+def plot_baseline_split(model, labels, others):
     df = pd.DataFrame()
     for tech in model.techs.values():
         dff = pd.DataFrame({'tech': [tech.name], 
@@ -44,11 +44,19 @@ def plot_baseline_split(model, labels):
         df = pd.concat([df, dff], ignore_index=True)
     
     model._re_name(df, labels, 'tech')
+    df = pd.concat([df, others], ignore_index=True)
     df = df.loc[df['Population']>0]
     df['Population'] /= 1000000
-    df['Share'] = df['Population'] / df['Population'].sum()
+    df['Share'] = df['Population'] / (model.specs['population_start_year'] / 1000000)
     shares = df.loc[df['Share']>0.005].copy()
     shares['label_position'] = shares.groupby('tech')['Population'].transform('cumsum')
+    for tech in shares['tech'].unique():
+        dff = shares.loc[shares['tech']==tech].copy()
+        if dff.shape[0] > 1:
+            dff.sort_values(by='label_position', inplace=True)
+            diff =  dff.iloc[1]['label_position'] - dff.iloc[0]['label_position']
+            if diff < 1:
+                shares.loc[(shares['tech']==tech) & (shares['region']==dff.iloc[1]['region']), 'label_position'] += 0.4   
     
     tech_list = df.groupby('tech')[['Population']].sum().sort_values('Population').index.tolist()
     colors = {'Urban': '#009fc3', 'Rural': '#b30437'}
@@ -63,17 +71,17 @@ def plot_baseline_split(model, labels):
                         color='#231f20'
                         )
         + p9.scale_x_discrete(limits=tech_list)
-        + p9.ylim(0, shares['label_position'].max() * 1.02)
+        # + p9.ylim(0, shares['label_position'].max() * 1.02)
         + p9.scale_fill_manual(colors)
-        + p9.coord_flip()
+        # + p9.coord_flip()
         + p9.theme_minimal()
-        + p9.theme(text=p9.element_text(size=6, color='#231f20'), legend_position=(0.82, 0.2), legend_direction='horizontal', 
+        + p9.theme(text=p9.element_text(size=6, color='#231f20'), legend_position=(0.25, 0.9), legend_direction='horizontal', 
                    legend_background=p9.element_rect(color='white', size=0.5, fill='#f9f9f9'), legend_box_margin=2
                   )
         + p9.labs(x='', y='Population (Millions)', fill='Municipalities'))
     
-    p.save(os.path.join(model.output_directory, 'current_share.pdf'), height=70/24.5, width=90/24.5)
-    p.save(os.path.join(model.output_directory, 'current_share.png'), height=70/24.5, width=90/24.5, dpi=300)
+    p.save(os.path.join(model.output_directory, 'current_share.pdf'), height=80/24.5, width=90/24.5)
+    p.save(os.path.join(model.output_directory, 'current_share.png'), height=80/24.5, width=90/24.5, dpi=300)
     return p
 
 def available_layers(d, indent=0):
