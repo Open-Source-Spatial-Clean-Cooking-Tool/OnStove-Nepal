@@ -132,6 +132,6 @@ dmypy.json
 # Custome
 *Data/
 *Results/
-.snakemake
+*.snakemake/
 *.zip
 
