@@ -36,15 +36,19 @@ or you can download as a zip file from the GitHub repository.
 
 ### Installing ``OnStove`` with `conda`
 The easiest way of installing and using `OnStove` is through `conda`. The `OnStove` Nepal model, uses 
-version `0.1.5` of the tool. After installing a distribution of 
-`conda`, open an `Anaconda Prompt` or a `Command Prompt`, and run:
+version `0.1.6` of the tool. After installing a distribution of 
+`conda`, open an `Anaconda Prompt` or a `Command Prompt`. You can install the environment by either running:
 ```
-conda create -n onstove -c conda-forge onstove==0.1.6
+conda create -n onstovenepal -c conda-forge -c bioconda onstove==0.1.6 snakemake-minimal
+```
+Or by using the provided ``environment.yaml`` file in the rooth folder:
+```
+conda env create -f environment.yaml
 ```
 After a few minutes, you will have a new conda environment called `onstove` with `OnStove` installed 
 on it. To use it open an `Anaconda Prompt`, and activate the environment with:
 ```
-conda activate onstove
+conda activate onstovenepal
 ```
 Now your environment `onstove` is available to use. 
 > [!IMPORTANT]
@@ -72,7 +76,12 @@ there. The order of the analysis is:
 actions based on the government's goals.
 
 ### Running with the automated workflow through `Snakemake`
-You can run the entire analysis using the `Snakemake` automated workflow. For this, in the anaconda prompt type:
+You can run the entire analysis using the `Snakemake` automated workflow. The workflow will allow to run the entire 
+model very easily, going from raw data processing, up to results and visualizations creation. To read more about 
+The ``OnStove`` workflow, please visit the post about
+[the development of the `OnStove` automated workflow](https://climatecompatiblegrowth.github.io/guidelines/knowledge/2023/09/27/onstove-workflow.html).
+
+To run the workflow type in the anaconda prompt:
 ```
 snakemake -n
 ```
