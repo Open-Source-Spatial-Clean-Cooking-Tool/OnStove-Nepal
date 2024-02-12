@@ -1,21 +1,7 @@
 name: onstovenepal
 channels:
-  - bioconda
   - conda-forge
-  - defaults
+  - bioconda
 dependencies:
-  - dill
-  - geopandas
-  - jupyterlab
-  - matplotlib
-  - plotnine>=0.12.2
-  - psycopg2
-  - psutil
-  - pyproj
-  - python>=3.10
-  - python-decouple
-  - rasterio
-  - scikit-image
+  - onstove ==0.1.6
   - snakemake-minimal
-  - svgpathtools
-  - svgpath2mpl

@@ -18,8 +18,8 @@ Morb_COPD,2640.83,float
 Morb_IHD,2079.24,float
 Morb_LC,5.8,float
 Morb_ALRI,7890.53,float
-Rural_HH_size,4.3,float
-Urban_HH_size,4.7,float
+Rural_HH_size,4.51,float
+Urban_HH_size,4.31,float
 Meals_per_day,3,float
 infra_weight,2,float
 NTL_weight,1,float
